@@ -13,6 +13,11 @@ router.get('/menu', function (req, res, next) {
 
 });
 
+router.get('/order', function (req, res, next) {
+  res.render('home/order', {title: 'Place Order - Pizza Express'});
+
+});
+
 router.get('/getMenu', function (req, res, next) {
   Product.find(function (err, products) {
     res.send(products);
