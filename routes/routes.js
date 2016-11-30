@@ -1,5 +1,5 @@
 var Product = require('../models/products');
-//var Order = require('../models/orders');
+var Order = require('../models/order');
 module.exports = function (app, passport) {
     app.get('/login', function (req, res) {
         res.render('home/login', {message: req.flash('loginMessage')});
@@ -17,6 +17,7 @@ module.exports = function (app, passport) {
     });
     app.get('/user/orders', isLoggedIn, function (req, res) {
         Order.find({user: req.user._id}, function (err, orders) {
+            console.log(orders);
             res.render('home/listUserOrders', {orders: orders});
         })
     });

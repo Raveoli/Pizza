@@ -1,0 +1,61 @@
+<script>
+    var validationApp = angular.module("validationApp", []);
+    validationApp.controller("PasswordController", function ($scope) {
+        var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\\\\\\\$%\^&\*])(?=.{6,})");
+        var mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{4,})");
+        $scope.passwordStrength = {
+            "width": "100px",
+            "height": "25px",
+            "margin-left": "5px"
+        };
+        $scope.analyze = function (value) {
+            if (strongRegex.test(value)) {
+                $scope.passwordStrength["background-color"] = "green";
+            } else if (mediumRegex.test(value)) {
+                $scope.passwordStrength["background-color"] = "orange";
+            } else {
+                $scope.passwordStrength["background-color"] = "red";
+            }
+        };
+    });
+</script>
+<div ng-app='validationApp' ng-controller='PasswordController'>
+    <div class="container">
+        <div class="col-sm-6 col-sm-offset-3">
+            <h1><span class="fa fa-sign-in"></span>Enter a Delivery Address</h1>
+            <!-- LOGIN FORM-->
+            <form name="deliveryAddress" action="/hdCheckout" method="post" novalidate>
+                <div class="form-group">
+                    <label>Name</label>
+                    <input ng-model="name" type="text" name="name" ng-pattern="/^[a-zA-Z]*$/" class="form-control"
+                           value="{{user.name}}"
+                           required/>
+                    <p ng-show="deliveryAddress.name.$error.pattern &amp;&amp; !deliveryAddress.name.$pristine"
+                       class="help-block">Enter a valid name</p>
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <input ng-model="address" type="text" name="address" class="form-control" value="{{user.address}}"
+                           required/>
+                </div>
+                <div class="form-group">
+                    <label>Phone number</label>
+                    <input ng-model="phNo" type="text" name="phNo" ng-minlength="10" ng-maxlength="10"
+                           ng-pattern="/^[0-9]{10}$/" class="form-control" value="{{user.phNo}}" required/>
+                    <p ng-show="deliveryAddress.phNo.$error.pattern &amp;&amp; deliveryAddress.phNo.$invalid &amp;&amp; !deliveryAddress.phNo.$pristine"
+                       class="help-block">Enter a valid phone number</p>
+                </div>
+                <div class="form-group">
+                    <label>Zipcode</label>
+                    <input ng-model="zipCode" type="text" name="zipCode" ng-minlength="5" ng-maxlength="5"
+                           ng-pattern="/^[0-9]{5}$/" class="form-control" value="{{user.zipCode}}" required/>
+                    <p ng-show="deliveryAddress.zipCode.$error.pattern &amp;&amp; deliveryAddress.zipCode.$invalid &amp;&amp; !deliveryAddress.zipCode.$pristine"
+                       class="help-block">Enter a valid zipcode</p>
+                </div>
+                <button type="submit" ng-disabled="deliveryAddress.$invalid" class="btn btn-warning btn-lg">Place Order
+                </button>
+            </form>
+            <hr/>
+        </div>
+    </div>
+</div>

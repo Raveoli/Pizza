@@ -11,6 +11,7 @@ var passport = require('passport');
 var flash = require('connect-flash');
 var bcrypt = require('bcrypt-nodejs');
 var MongoStore = require('connect-mongo')(session);
+var moment = require('moment-timezone');
 
 var db = require('./config/db');
 var index = require('./routes/index');
@@ -79,7 +80,8 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-/*var User = require('./models/user');
+/*
+ var User = require('./models/user');
  var newUser = new User();
  newUser.userName    = "admin1";
  newUser.password = newUser.generateHash("admin");
@@ -94,6 +96,8 @@ app.use(function(err, req, res, next) {
  } else {
  console.log("Saved");
  }
- });*/
+ });
+ */
+console.log(moment().tz("America/Chicago").format("YYYY-MM-DD HH:mm:ss"));
 
 module.exports = app;
