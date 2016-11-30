@@ -1,0 +1,24 @@
+<div class="container">
+    <section class="container-fluid text-center">
+        <div class="col-md-4">
+            <hr/>
+            <h1>Your Past Orders</h1>
+            <div class="row">
+                <div class="well">
+                    {{#each order}}
+                        {{# each this.cart.items}}
+                            <h3>{{this.item.name}}</h3>
+                            <div class="thumbnail"><img src="{{this.item.image}}" alt="{{this.item.name}}"
+                                                        class="img-responsive"/>
+                            </div>
+                        {{/each}}
+                        {{#this.cart}}
+                            <p>Quantity: {{totalQty}}</p>
+                            <p>Price: {{totalPrice}}</p>
+                        {{/this.cart}}
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
