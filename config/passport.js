@@ -10,7 +10,6 @@ module.exports = function(passport) {
     });
     passport.deserializeUser(function(id, done) {
         User.findById(id, function(err, user) {
-            //console.log("user.userName"+user)
             done(err,user);
         });
     });
@@ -68,24 +67,26 @@ module.exports = function(passport) {
             passReqToCallback: true
         },
         function(req, username, password, done) {
-                User.findOne({ userName: username }, function (err, user) {
-                    if (err) { return done(err); }
-                    // Return if user not found in database
-                    if (!user) {
-                        /*return done(null, false, {
-                            message: 'User not found'
-                        });*/
-                        return done(null, false,req.flash('loginMessage','User not found'));
-                    }
-                    if (!user.validPassword(password)) {
-                       /* return done(null, false, {
-                            message: 'Password is wrong'
-                        });*/
-                        return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
-                    }
-                    // If credentials are correct, return the user object
-                    return done(null, user);
-                });
+            User.findOne({userName: username}, function (err, user) {
+                if (err) {
+                    return done(err);
+                }
+                // Return if user not found in database
+                if (!user) {
+                    /*return done(null, false, {
+                     message: 'User not found'
+                     });*/
+                    return done(null, false, req.flash('loginMessage', 'User not found'));
+                }
+                if (!user.validPassword(password)) {
+                    /* return done(null, false, {
+                     message: 'Password is wrong'
+                     });*/
+                    return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
+                }
+                // If credentials are correct, return the user object
+                return done(null, user);
+            });
         }
     ));
 }

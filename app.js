@@ -16,9 +16,11 @@ var db = require('./config/db');
 var index = require('./routes/index');
 var users = require('./routes/users');
 
+
 var app = express();
 mongoose.connect(db.url);
 require('./config/passport')(passport);
+
 
 // view engine setup
 app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs'}));
@@ -44,8 +46,10 @@ app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function (req, res, next) {
+    res.locals.login = req.isAuthenticated();
   res.locals.session = req.session;
   res.locals.loginMessage = req.flash('loginMessage');
+    console.log("res.locals.loginMessage" + res.locals.loginMessage);
   res.locals.signupMessage = req.flash('signupMessage');
   res.locals.adminMessage = req.flash('adminMessage');
   next();
@@ -53,6 +57,8 @@ app.use(function (req, res, next) {
 
 app.use('/', index);
 app.use('/users', users);
+require('./routes/routes.js')(app, passport);
+//app.use('/login', routes);
 
 app.use(express.static(path.join(__dirname, 'public')));
 //app.use(express.static('public'));

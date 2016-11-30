@@ -1,0 +1,92 @@
+<script>
+    var validationApp = angular.module("validationApp", []);
+    validationApp.controller("PasswordController", function ($scope) {
+        var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\\\\\\\$%\^&\*])(?=.{6,})");
+        var mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{4,})");
+        $scope.passwordStrength = {
+            "width": "100px",
+            "height": "25px",
+            "margin-left": "5px"
+        };
+        $scope.analyze = function (value) {
+            if (strongRegex.test(value)) {
+                $scope.passwordStrength["background-color"] = "green";
+            } else if (mediumRegex.test(value)) {
+                $scope.passwordStrength["background-color"] = "orange";
+            } else {
+                $scope.passwordStrength["background-color"] = "red";
+            }
+        };
+    });
+</script>
+<div ng-app='validationApp' ng-controller='PasswordController'>
+    <div class="container">
+        <div class="col-sm-6 col-sm-offset-3">
+            <h1><span class="fa fa-sign-in"></span> Signup</h1>
+            {{#if signupMessage}}
+                <div class="alert alert-danger">{{signupMessage}}</div>
+            {{/if}}
+            <!-- LOGIN FORM-->
+            <form name="signup" action="/signup" method="post" novalidate>
+                <div class="form-group">
+                    <label>Username</label>
+                    <input ng-model="user.userName" type="text" name="userName" ng-minlength="3" ng-maxlength="8"
+                           class="form-control" required/>
+                    <p ng-show="signup.userName.$invalid &amp;&amp; !signup.userName.$pristine &amp;&amp; signup.userName.$error.minlength"
+                       class="help-block">Username is too short.</p>
+                    <p ng-show="signup.userName.$invalid &amp;&amp; !signup.userName.$pristine &amp;&amp; signup.userName.$error.maxlength"
+                       class="help-block">Username is too long.</p>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input ng-model="password" type="password" name="password" ng-minlength="5"
+                           ng-change="analyze(password)" class="form-control" required/>
+                    <p ng-show="signup.password.$invalid &amp;&amp; !signup.password.$pristine &amp;&amp; signup.password.$error.minlength"
+                       class="help-block">Password is too short.</p>
+                </div>
+                <div class="form-group">
+                    <p>Password Strength</p>
+                    <div ng-style="passwordStrength"></div>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input ng-model="email" type="email" name="email" class="form-control" required/>
+                    <p ng-show="signup.email.$invalid &amp;&amp; !signup.email.$pristine" class="help-block">Enter a
+                        valid email.</p>
+                </div>
+                <div class="form-group">
+                    <label>Name</label>
+                    <input ng-model="name" type="text" name="name" ng-pattern="/^[a-zA-Z]*$/" class="form-control"
+                           required/>
+                    <p ng-show="signup.name.$error.pattern &amp;&amp; !signup.name.$pristine" class="help-block">Enter a
+                        valid name</p>
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <input ng-model="address" type="text" name="address" ng-pattern="/^[a-zA-Z0-9 ]*$/"
+                           class="form-control" required/>
+                    <p ng-show="signup.address.$error.pattern &amp;&amp; !signup.address.$pristine" class="help-block">
+                        Enter a valid address</p>
+                </div>
+                <div class="form-group">
+                    <label>Phone number</label>
+                    <input ng-model="phNo" type="text" name="phNo" ng-minlength="10" ng-maxlength="10"
+                           ng-pattern="/^[0-9]{10}$/" class="form-control" required/>
+                    <p ng-show="signup.phNo.$error.pattern &amp;&amp; signup.phNo.$invalid &amp;&amp; !signup.phNo.$pristine"
+                       class="help-block">Enter a valid phone number</p>
+                </div>
+                <div class="form-group">
+                    <label>Zipcode</label>
+                    <input ng-model="zipCode" type="text" name="zipCode" ng-minlength="5" ng-maxlength="5"
+                           ng-pattern="/^[0-9]{5}$/" class="form-control" required/>
+                    <p ng-show="signup.zipCode.$error.pattern &amp;&amp; signup.zipCode.$invalid &amp;&amp; !signup.zipCode.$pristine"
+                       class="help-block">Enter a valid zipcode</p>
+                </div>
+                <button type="submit" ng-disabled="signup.$invalid" class="btn btn-warning btn-lg">Signup</button>
+            </form>
+            <hr/>
+            <p>Already have an account?<a href="/login">Login
+            <p>Or go<a href="/">home</a>.</p></a></p>
+        </div>
+    </div>
+</div>
