@@ -86,7 +86,7 @@ router.get('/order/:id', function (req, res, next) {
 });
 
 router.get('/getMenu', function (req, res, next) {
-    Product.find(function (err, products) {
+    Product.find({available: true}, function (err, products) {
         res.send(products);
     })
 });

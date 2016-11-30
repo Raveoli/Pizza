@@ -49,7 +49,6 @@ app.use(function (req, res, next) {
     res.locals.login = req.isAuthenticated();
   res.locals.session = req.session;
   res.locals.loginMessage = req.flash('loginMessage');
-    console.log("res.locals.loginMessage" + res.locals.loginMessage);
   res.locals.signupMessage = req.flash('signupMessage');
   res.locals.adminMessage = req.flash('adminMessage');
   next();
@@ -80,5 +79,21 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+/*var User = require('./models/user');
+ var newUser = new User();
+ newUser.userName    = "admin1";
+ newUser.password = newUser.generateHash("admin");
+ newUser.name = "admin1";
+ newUser.email    = "admin1@gmail.com";
+ newUser.address    = "richardson";
+ newUser.phNo    = "1111111111";
+ newUser.zipCode    = "12312";
+ newUser.save(function(err){
+ if (err) {
+ console.log("Error saving");
+ } else {
+ console.log("Saved");
+ }
+ });*/
 
 module.exports = app;

@@ -1,0 +1,19 @@
+<div class="container">
+    <div ng-app="admin" ng-controller="prodCtrl as app">
+        <section class="container-fluid text-center">
+            <div ng-repeat="product in app.products" class="col-md-4">
+                <div class="thumbnail"><img src="\{{product.image}}" alt="\{{product.name}}" class="img-responsive"/>
+                </div>
+                <hr/>
+                <div class="row">
+                    <div class="well">
+                        <h3>\{{product.name}}</h3>
+                        <p>\{{product.description}}</p><a href="/admin/delete/\{{product._id}}">Delete<a
+                            href="/admin/update/\{{product._id}}">Update</a></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<script src="/javascripts/controllers/listProdController.js"></script>
