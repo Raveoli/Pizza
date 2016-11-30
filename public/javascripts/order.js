@@ -37,3 +37,4 @@ $("#size").change(function () {
     $('#price').val(price);
 
 });
+

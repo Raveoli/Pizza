@@ -5,11 +5,11 @@
     </div>
     <div class="row">
         <div class="col-sm-12 col-md-8">
-            <form>
+            <form action="/addToCart/{{product._id}}" method="post">
                 <div class="row">
                     <div class="col-xs-2">
                         <label for="qty">Quantity</label>
-                        <input class="form-control" id="qty" type="text" value="1">
+                        <input class="form-control" id="qty" name="qty" type="text" value="1">
                     </div>
                     <div class="form-group col-xs-4">
                         <label for="size">Crust Size</label>
@@ -24,8 +24,7 @@
                         <input class="form-control" id="price" type="text" value="{{product.price}}" disabled>
                     </div>
                     <div>
-                        <a href="/addToCart/{{product._id}}" role="button" class="btn btn-success btn-sm">Add to
-                            Cart</a>
+                        <input type="submit" value="Add To cart" class="btn btn-success btn-sm">
                     </div>
                 </div>
             </form>
