@@ -18,7 +18,7 @@ var productSchema = new mongoose.Schema({
         type: Boolean,
         required: true
     },
-    price: [{size: String, price: Number}]
+    price: Number
 });
 
 module.exports = mongoose.model('Product', productSchema);

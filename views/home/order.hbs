@@ -1,96 +1,36 @@
-<div class="group">
-    <section>
-        <div class="image-wrapper"><img src="/images/peperoni.jpg"></div>
-    </section>
-    <aside>
-        <form>
-            <h4>Quantity</h4>
-            <div class="form-group">
-                <select class="form-control">
-                    <option value="0" selected="">1</option>
-                    <option value="1">2</option>
-                    <option value="2">3</option>
-                    <option value="2">4</option>
-                    <option value="2">5</option>
-                    <option value="2">6</option>
-                    <option value="2">7</option>
-                    <option value="2">8</option>
-                    <option value="2">9</option>
-                    <option value="2">10</option>
-                </select>
-            </div>
-            <h4>Size</h4>
-            <div class="form-group">
-                <select class="form-control">
-                    <option value="0" selected="">Small</option>
-                    <option value="1">Medium</option>
-                    <option value="2">Large</option>
-                </select>
-            </div>
-            <h4>Crust
-                <div class="form-group">
-                    <select class="form-control">
-                        <option value="Handmade Pan Pizza Crust" selected="">Handmade Pan Pizza Crust</option>
-                        <option value="Hand Tossed Pizza Crust">Hand Tossed Pizza Crust</option>
-                        <option value="Crunchy Thin Pizza Crust">Crunchy Thin Pizza Crust</option>
-                        <option value="Brooklyn Style Pizza Crust">Brooklyn Style Pizza Crust</option>
-                        <option value="Gluten Free Pizza Crust">Gluten Free Pizza Crust</option>
-                    </select>
+<h1>Customize your order for {{product.name}}</h1>
+<div class="group-left">
+    <div class="row productImage">
+        <img class="image-wrapper" src="{{product.image}}" alt="{{product.name}}">
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-8">
+            <form>
+                <div class="row">
+                    <div class="col-xs-2">
+                        <label for="qty">Quantity</label>
+                        <input class="form-control" id="qty" type="text" value="1">
+                    </div>
+                    <div class="form-group col-xs-4">
+                        <label for="size">Crust Size</label>
+                        <select class="form-control" id="size">
+                            <option value="0" selected="selected">Small</option>
+                            <option value="3">Medium</option>
+                            <option value="6">Large</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-2">
+                        <label for="price">Price</label>
+                        <input class="form-control" id="price" type="text" value="{{product.price}}" disabled>
+                    </div>
+                    <div>
+                        <a href="/addToCart/{{product._id}}" role="button" class="btn btn-success btn-sm">Add to
+                            Cart</a>
+                    </div>
                 </div>
-            </h4>
-            <h4>Toppings
-                <div class="form-group">
-                    <select class="form-control">
-                        <option value="Pepperoni" selected="">Pepperoni</option>
-                        <option value="Pepperoni">Pepperoni</option>
-                        <option value="Mushrooms">Mushrooms</option>
-                        <option value="Onions">Onions</option>
-                        <option value="Sausage">Sausage</option>
-                        <option value="Bacon">Bacon</option>
-                        <option value="Tomato">Tomato</option>
-                        <option value="Jalapeno">Jalapeno</option>
-                        <option value="Black Olives">Black olives</option>
-                        <option value="Pineapple">Pineapple</option>
-                        <option value="Spinach">Spinach</option>
-                    </select>
-                </div>
-            </h4>
-            <h4>Type
-                <div class="form-group">
-                    <select class="form-control">
-                        <option value="Pizza" selected="">Pizza</option>
-                        <option value="Pizza">Pizza</option>
-                        <option value="Drink">Drink</option>
-                        <option value="Desert">Desert</option>
-                        <option value="Desert">Breadsticks</option>
-                    </select>
-                </div>
-            </h4>
-            <h4>Type
-                <div class="form-group">
-                    <select class="form-control">
-                        <option value="Pizza" selected="">Pizza</option>
-                        <option value="Pizza">Pizza</option>
-                        <option value="Drink">Drink</option>
-                        <option value="Desert">Desert</option>
-                        <option value="Desert">Breadsticks</option>
-                    </select>
-                </div>
-            </h4>
-            <h4>Cheese
-                <div class="form-group">
-                    <select class="form-control">
-                        <option value="Cheese" selected="">Cheese</option>
-                        <option value="Cheese">Cheese</option>
-                        <option value="No cheese">No Cheese</option>
-                    </select>
-                </div>
-            </h4>
-            <div class="action_btns">
-                <div class="one_half"><a id="pickup" href="#Submit" class="btn btn_red">Submit<i
-                        class="fa fa-angle-double-left"></i></a></div>
-                <div class="one_half last"><a id="delivery" href="#Reset" class="btn btn_red">Reset</a></div>
-            </div>
-        </form>
-    </aside>
+            </form>
+
+        </div>
+    </div>
 </div>
+<script src="/javascripts/order.js"></script>
