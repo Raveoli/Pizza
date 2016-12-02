@@ -1,16 +1,25 @@
-<div class="container">
-    <div>
-        <section class="container-fluid text-center">
-            <div class="col-md-4">
-                <div class="thumbnail"><img src="{{orders.image}}" alt="{{orders.name}}" class="img-responsive"/></div>
-                <hr/>
-                <div class="row">
-                    <div class="well">
-                        <h3>{{orders.name}}</h3>
-                        <p>{{orders.description}}</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+<h1>Your Orders </h1>
+{{# if orders }}
+    <div class="row">
+        <table class="table table-condensed">
+            <thead>
+            <tr>
+                <th>Time</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {{# each orders }}
+                <tr>
+                    <td>{{this.timeStamp}}</td>
+                    <td>{{this.cart.totalQty}}</td>
+                    <td>${{this.cart.totalPrice}}</td>
+                    <td><a href="/user/{{this._id}}">Details</a></td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
     </div>
-</div>
+{{/if}}

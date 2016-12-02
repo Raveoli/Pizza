@@ -20,5 +20,5 @@ var productSchema = new mongoose.Schema({
     },
     price: Number
 });
-
+productSchema.index({name: 'text', description: 'text'});
 module.exports = mongoose.model('Product', productSchema);

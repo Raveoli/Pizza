@@ -21,6 +21,13 @@ module.exports = function (app, passport) {
             res.render('home/listUserOrders', {orders: orders});
         })
     });
+    app.get('/user/:id', isLoggedIn, function (req, res) {
+        var orderid = req.param("id");
+        Order.findById(orderid, function (err, order) {
+            console.log(order);
+            res.render('home/orderDetails', {order: order});
+        })
+    });
     app.get('/admin/add', isLoggedIn, function (req, res) {
         res.render('home/addProducts'); // load the index.ejs file
     });

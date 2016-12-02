@@ -132,7 +132,7 @@ router.post('/hdCheckOut', function (req, res, next) {
             }
             else {
                 req.session.cart = null;
-                res.render('home/checkOut', {title: 'Delivery Method - Pizza Express', order: order});
+                res.render('home/checkOut', {title: 'Delivery Method - Pizza Express', order: order1});
             }
         });
 
@@ -188,20 +188,51 @@ router.get('/getMenu', function (req, res, next) {
     })
 });
 
-router.get('/search', function (req, res) {
-    var regex = new RegExp(req.query["term"], 'i');
-    var query = Product.find({name: regex}).sort({"updated_at": -1}).sort({"created_at": -1}).limit(20);
+router.post('/search', function (req, res) {
+    Product.find({$text: {$search: req.body.query}}, {score: {$meta: "textScore"}})
+        .sort({score: {$meta: 'textScore'}})
+        .exec(function (err, products) {
+            if (err) {
+                console.log("Error Searching " + err);
+            }
+            else {
+                // console.log(products);
+                res.render('home/searchResults', {
+                    title: 'Search Results - Pizza Express',
+                    products: products,
+                    query: req.body.query
+                });
+            }
+        });
+});
 
-    // Execute query in a callback and return users list
-    query.exec(function (err, products) {
-        if (!err) {
+router.post('/filter/:query', function (req, res) {
+    if (req.body.filter == "name") {
+        console.log(req.params.query);
+        Product.find({name: new RegExp(req.params.query, 'i')}, function (err, products) {
+            if (err) throw err;
+
+            // object of the user
             console.log(products);
-            //regex.render('home/search', {title: 'Search - Pizza Express', products: products});
-        } else {
-            res.send(JSON.stringify(err), {
-                'Content-Type': 'application/json'
-            }, 404);
-        }
-    });
+            res.render('home/searchResults', {
+                title: 'Search Results - Pizza Express',
+                products: products,
+                query: req.params.query
+            });
+
+        });
+    } else {
+        Product.find({description: new RegExp(req.params.query, 'i')}, function (err, products) {
+            if (err) throw err;
+
+            // object of the user
+            console.log(products);
+            res.render('home/searchResults', {
+                title: 'Search Results - Pizza Express',
+                products: products,
+                query: req.params.query
+            });
+        });
+    }
 });
 module.exports = router;

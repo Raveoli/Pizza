@@ -87,3 +87,19 @@ body {font-family: Verdana,sans-serif;}
 @media only screen and (max-width: 300px) {
   .text {font-size: 11px}
 }
+
+aside {
+  float: right;
+  margin: 0 1.5%;
+  width: 30%;
+}
+
+.image-wrapper {
+  max-height: 500px;
+  max-width: 500px;
+}
+
+.productImage {
+  padding: 5px;
+  text-align: left;
+}
