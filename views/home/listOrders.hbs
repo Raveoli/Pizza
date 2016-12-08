@@ -1,24 +1,25 @@
-<div class="container">
-    <section class="container-fluid text-center">
-        <div class="col-md-4">
-            <hr/>
-            <h1>Your Past Orders</h1>
-            <div class="row">
-                <div class="well">
-                    {{#each order}}
-                        {{# each this.cart.items}}
-                            <h3>{{this.item.name}}</h3>
-                            <div class="thumbnail"><img src="{{this.item.image}}" alt="{{this.item.name}}"
-                                                        class="img-responsive"/>
-                            </div>
-                        {{/each}}
-                        {{#this.cart}}
-                            <p>Quantity: {{totalQty}}</p>
-                            <p>Price: {{totalPrice}}</p>
-                        {{/this.cart}}
-                    {{/each}}
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
+<h1>Your Orders </h1>
+{{# if orders }}
+    <div class="row">
+        <table class="table table-condensed">
+            <thead>
+            <tr>
+                <th>Time</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {{# each orders }}
+                <tr>
+                    <td>{{this.timeStamp}}</td>
+                    <td>{{this.cart.totalQty}}</td>
+                    <td>${{this.cart.totalPrice}}</td>
+                    <td><a href="/user/{{this._id}}">Details</a></td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+{{/if}}

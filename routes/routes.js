@@ -1,5 +1,5 @@
 var Product = require('../models/products');
-//var Order = require('../models/orders');
+var Order = require('../models/order');
 module.exports = function (app, passport) {
     app.get('/login', function (req, res) {
         res.render('home/login', {message: req.flash('loginMessage')});
